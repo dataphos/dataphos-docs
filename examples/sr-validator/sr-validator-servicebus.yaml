@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: centralconsumer-config
+  namespace: dataphos
+data:
+  CONSUMER_TYPE: "servicebus"
+  CONSUMER_SERVICEBUS_CONNECTION_STRING: $consumer_servicebus_connection_string # insert the consumer service bus connection string
+  CONSUMER_SERVICEBUS_TOPIC: consumer_servicebus_topic # insert te consumer service bus topic
+  CONSUMER_SERVICEBUS_SUBSCRIPTION: $consumer_servicebus_subscription # insert te consumer service bus subsription
+
+  PRODUCER_TYPE: "servicebus"
+  PRODUCER_SERVICEBUS_CONNECTION_STRING: $producer_servicebus_connection_string # insert the producer service bus connection string
+
+  TOPICS_VALID: $producer_valid_topic_ID # insert producer valid topic
+  TOPICS_DEAD_LETTER: $producer_deadletter_topic_ID # insert producer dead-letter topic
+
+  REGISTRY_URL: "http://schema-registry-svc:8080"
+  VALIDATORS_ENABLE_JSON: "true"
+  VALIDATORS_ENABLE_AVRO: "false"
+  VALIDATORS_ENABLE_PROTOBUF: "false"
+  VALIDATORS_ENABLE_CSV: "false"
+  VALIDATORS_CSV_URL: "http://csv-validator-svc:8080"
+  VALIDATORS_ENABLE_XML: "false"
+  VALIDATORS_XML_URL: "http://xml-validator-svc:8081"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "metrics"
+  namespace: dataphos
+spec:
+  ports:
+    - name: metrics
+      port: 2112
+      targetPort: 2112
+  selector:
+    app: "centralconsumer"
+  type: "LoadBalancer"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: centralconsumer
+  namespace: dataphos
+  annotations:
+    "syntio.net/logme": "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: centralconsumer
+  template:
+    metadata:
+      labels:
+        app: centralconsumer
+    spec:
+      containers:
+        - name: centralconsumer
+          image: syntioinc/dataphos-schema-registry-validator:1.0.0
+          resources:
+            limits:
+              cpu: "125m"
+              memory: "80Mi"
+            requests:
+              cpu: "125m"
+              memory: "40Mi"
+          envFrom:
+            - configMapRef:
+                name: centralconsumer-config
+          ports:
+            - name: metrics
+              containerPort: 2112
+      imagePullSecrets:
+        - name: nexuscred
+
+---

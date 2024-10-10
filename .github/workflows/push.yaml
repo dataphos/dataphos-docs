@@ -1,0 +1,69 @@
+name: PUSH CI
+on:
+  push:
+    branches: [ develop, main ]
+  workflow_dispatch:
+
+jobs:
+  commitlint:
+    name: Commit Lint Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install commitlint
+        run: |
+          npm install --save-dev @commitlint/{cli,config-conventional}
+      - name: Validate current commit (last commit) with commitlint
+        run: npx commitlint --last --verbose
+
+  deploy:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout Code
+        uses: 'actions/checkout@v3'
+        with:
+          submodules: 'true'
+
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_ACCOUNT }}"
+
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v1'
+        with:
+          service: 'dataphos-docs'
+          source: ./dataphos-docs
+          region: europe-west1
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          flags: '--port=1313 --max-instances=5 --memory=512Mi --timeout=300 --allow-unauthenticated'
+          env_vars: |
+            HUGO_ENV=production
+
+      - name: 'Use output'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'
+
+  release-please:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          release-type: simple

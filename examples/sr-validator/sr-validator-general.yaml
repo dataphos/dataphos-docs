@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: centralconsumer-config
+  namespace: dataphos
+data:
+# Uncomment the type you want to use and fill the values for it
+
+#  CONSUMER_TYPE: "kafka"
+#  CONSUMER_KAFKA_ADDRESS:
+#  CONSUMER_KAFKA_TOPIC:
+#  CONSUMER_KAFKA_GROUP_ID:
+
+#  CONSUMER_TYPE: "pubsub"
+#  CONSUMER_PUBSUB_PROJECT_ID:
+#  CONSUMER_PUBSUB_SUBSCRIPTION_ID:
+
+#  CONSUMER_TYPE: "servicebus"
+#  CONSUMER_SERVICEBUS_CONNECTION_STRING:
+#  CONSUMER_SERVICEBUS_TOPIC:
+#  CONSUMER_SERVICEBUS_SUBSCRIPTION:
+
+
+#  PRODUCER_TYPE: "kafka"
+#  PRODUCER_KAFKA_ADDRESS:
+
+#  PRODUCER_TYPE: "pubsub"
+#  PRODUCER_PUBSUB_PROJECT_ID:
+
+#  PRODUCER_TYPE: "servicebus"
+#  PRODUCER_SERVICEBUS_CONNECTION_STRING:
+
+  TOPICS_VALID:
+  TOPICS_DEAD_LETTER:
+
+  REGISTRY_URL: "http://schema-registry-svc:8080"
+  VALIDATORS_ENABLE_JSON:
+  VALIDATORS_ENABLE_AVRO:
+  VALIDATORS_ENABLE_PROTOBUF:
+  VALIDATORS_ENABLE_CSV:
+  VALIDATORS_CSV_URL: "http://csv-validator-svc:8080"
+  VALIDATORS_ENABLE_XML:
+  VALIDATORS_XML_URL: "http://xml-validator-svc:8081"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "metrics"
+  namespace: dataphos
+spec:
+  ports:
+    - name: metrics
+      port: 2112
+      targetPort: 2112
+  selector:
+    app: "centralconsumer"
+  type: "LoadBalancer"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: centralconsumer
+  namespace: dataphos
+  annotations:
+    "syntio.net/logme": "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: centralconsumer
+  template:
+    metadata:
+      labels:
+        app: centralconsumer
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: service-account-credentials
+      containers:
+        - name: centralconsumer
+          image: syntioinc/dataphos-schema-registry-validator:1.0.0
+          resources:
+            limits:
+              cpu: "125m"
+              memory: "80Mi"
+            requests:
+              cpu: "125m"
+              memory: "40Mi"
+          volumeMounts:
+            - mountPath: /var/secrets/google
+              name: google-cloud-key
+          envFrom:
+            - configMapRef:
+                name: centralconsumer-config
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
+          ports:
+            - name: metrics
+              containerPort: 2112
+      imagePullSecrets:
+        - name: nexuscred
+
+---

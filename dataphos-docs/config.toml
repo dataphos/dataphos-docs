@@ -1,0 +1,31 @@
+baseURL = "/"
+title = "DATAPHOS"
+theme = "hugo-geekdoc"
+
+googleAnalytics = "G-050NNGSD05"
+pluralizeListTitles = false
+
+# Geekdoc required configuration
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+disablePathToLower = true
+enableGitInfo = false
+
+# Required if you want to render robots.txt template
+enableRobotsTXT = true
+
+# Needed for mermaid shortcodes
+[markup]
+  [markup.goldmark.renderer]
+    # Needed for mermaid shortcode
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 9
+
+[taxonomies]
+   tag = "tags"
+
+[params]
+    geekdocLogo = "brand.png"
+    
