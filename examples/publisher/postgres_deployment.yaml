@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: publisher-source
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: publisher-postgres-source-config
+  namespace: publisher-source
+data:
+  PGDATA: /var/lib/postgresql/data/pgdata
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: publisher-postgres-source-secret
+  namespace: publisher-source
+type: Opaque
+stringData:
+  POSTGRES_DB: invoices
+  POSTGRES_USER: demo_user
+  POSTGRES_PASSWORD: demo_password
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: publisher-postgres-source
+  namespace: publisher-source
+spec:
+  selector:
+    app: publisher-postgres-source-db
+  ports:
+    - port: 5432
+  type: LoadBalancer
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: publisher-postgres-source-db
+  namespace: publisher-source
+spec:
+  serviceName: publisher-postgres-source
+  replicas: 1
+  selector:
+    matchLabels:
+      app: publisher-postgres-source-db
+  template:
+    metadata:
+      labels:
+        app: publisher-postgres-source-db
+    spec:
+      containers:
+        - name: publisher-postgres-source
+          image: syntioinc/dataphos-publisher-source-example:1.0.0
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: publisher-postgres-source-config
+            - secretRef:
+                name: publisher-postgres-source-secret
+          volumeMounts:
+            - name: publisher-postgres-source-data-volume
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: publisher-postgres-source-data-volume
+        namespace: publisher-source
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 500M

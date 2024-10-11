@@ -1,0 +1,45 @@
+name: PR CI
+
+on:
+  pull_request:
+    branches: [ develop, main ]
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  commitlint:
+    name: Commit Lint Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install commitlint
+        run: |
+          npm install --save-dev @commitlint/{cli,config-conventional}
+      - name: Validate PR commits with commitlint
+        run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  editor_config_job:
+    name: Editor Config Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Editor Config
+        run: |
+          npm install --save-dev editorconfig-checker
+          ./node_modules/.bin/editorconfig-checker

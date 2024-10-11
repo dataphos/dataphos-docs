@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: centralconsumer-config
+  namespace: dataphos
+data:
+  CONSUMER_TYPE: "pubsub"
+  CONSUMER_PUBSUB_PROJECT_ID: $consumer_project_ID # insert consumer GCP project ID
+  CONSUMER_PUBSUB_SUBSCRIPTION_ID: $consumer_subscription_ID # insert producer pubsub subscription ID
+  PRODUCER_TYPE: "pubsub"
+  PRODUCER_PUBSUB_PROJECT_ID: $producer_project_ID # insert producer GCP project ID
+
+  TOPICS_VALID: $producer_valid_topic_ID # insert producer valid topic
+  TOPICS_DEAD_LETTER: $producer_deadletter_topic_ID # insert producer dead-letter topic
+
+  REGISTRY_URL: "http://schema-registry-svc:8080"
+  VALIDATORS_ENABLE_JSON: "true"
+  VALIDATORS_ENABLE_AVRO: "false"
+  VALIDATORS_ENABLE_PROTOBUF: "false"
+  VALIDATORS_ENABLE_CSV: "false"
+  VALIDATORS_CSV_URL: "http://csv-validator-svc:8080"
+  VALIDATORS_ENABLE_XML: "false"
+  VALIDATORS_XML_URL: "http://xml-validator-svc:8081"
+
+---
+
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "metrics"
+  namespace: dataphos
+spec:
+  ports:
+    - name: metrics
+      port: 2112
+      targetPort: 2112
+  selector:
+    app: "centralconsumer"
+  type: "LoadBalancer"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: centralconsumer
+  namespace: dataphos
+  annotations:
+    "syntio.net/logme": "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: centralconsumer
+  template:
+    metadata:
+      labels:
+        app: centralconsumer
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: service-account-credentials
+      containers:
+        - name: centralconsumer
+          image: syntioinc/dataphos-schema-registry-validator:1.0.0
+          resources:
+            limits:
+              cpu: "125m"
+              memory: "80Mi"
+            requests:
+              cpu: "125m"
+              memory: "40Mi"
+          volumeMounts:
+            - mountPath: /var/secrets/google
+              name: google-cloud-key
+          envFrom:
+            - configMapRef:
+                name: centralconsumer-config
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
+          ports:
+            - name: metrics
+              containerPort: 2112
+      imagePullSecrets:
+        - name: nexuscred
+
+---

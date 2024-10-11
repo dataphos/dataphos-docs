@@ -1,0 +1,972 @@
+/* Global customization */
+:root {
+    --code-max-height: 60rem;
+  }
+
+  /* Light mode theming */
+  :root,
+  :root[color-theme="light"] {
+    --header-background: #1a1a1a;
+    --header-font-color: #ffffff;
+
+    --body-background: #1a1a1a;
+    --body-font-color: #ced3d8;
+
+    --mark-color: #ffab00;
+
+    --button-background: #be69d8;
+    --button-border-color: #be69d8;
+
+    --link-color: #be69d8;
+    --link-color-visited: #c27a9e;
+
+    --code-background: #3c393d;
+    --code-accent-color: #be69d8;
+    --code-accent-color-lite: #d896ec;
+    --code-font-color: #eeeded;
+
+    --code-copy-background: #343a40;
+    --code-copy-font-color: #6b7784;
+    --code-copy-border-color: #6b7784;
+    --code-copy-success-color: #be69d8;
+
+    --accent-color: #2b3035;
+    --accent-color-lite: #2f353a;
+
+    --control-icons: #b2bac1;
+
+    --footer-background: #1a1a1a;
+    --footer-font-color: #ffffff;
+    --footer-link-color: #be69d8;
+    --footer-link-color-visited: #be69d8;
+
+  }
+
+
+:root .dark-mode-dim .gdoc-markdown img {
+    filter: brightness(0.75) grayscale(0.2)
+}
+
+:root .gdoc-markdown .gdoc-hint,
+:root .gdoc-markdown .gdoc-props__tag,
+:root .gdoc-markdown .admonitionblock {
+    filter: saturate(2.5) brightness(0.85)
+}
+
+:root .gdoc-markdown .gdoc-hint a,
+:root .gdoc-markdown .admonitionblock a {
+    color: var(--hint-link-color)
+}
+
+:root .gdoc-markdown .gdoc-hint a:visited,
+:root .gdoc-markdown .admonitionblock a:visited {
+    color: var(--hint-link-color-visited)
+}
+
+:root .gdoc-markdown .gdoc-hint__title,
+:root .gdoc-markdown .admonitionblock table td:first-child {
+    background-color: rgba(134, 142, 150, .15)
+}
+
+:root .chroma {
+    color: var(--code-font-color)
+}
+
+:root .chroma .lntable td:nth-child(2) code .hl {
+    width: auto;
+    margin-left: -0.5em;
+    padding: 0 .5em
+}
+
+:root .highlight pre.chroma {
+    width: 100%;
+    overflow: auto;
+    max-height: var(--code-max-height)
+}
+
+:root .chroma .lntable {
+    border: 1px solid var(--code-accent-color);
+    border-radius: .15rem;
+    border-spacing: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: block;
+    max-height: var(--code-max-height);
+    overflow: auto
+}
+
+:root .chroma .lntable pre.chroma {
+    max-height: none;
+    border-radius: 0;
+    margin: 0
+}
+
+:root .chroma .lntable td:first-child code {
+    background-color: var(--code-accent-color-lite);
+    border-right: 1px solid var(--code-accent-color);
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0
+}
+
+:root .chroma .lntable td:nth-child(2) {
+    width: 100%;
+    margin-left: 2rem
+}
+
+:root .chroma .x {
+    color: inherit
+}
+
+:root .chroma .err {
+    color: inherit
+}
+
+:root .chroma .lntd {
+    vertical-align: top;
+    padding: 0;
+    margin: 0;
+    border: 0
+}
+
+:root .chroma .hl {
+    display: block;
+    width: 100%;
+    background-color: #4f1605
+}
+
+:root .chroma .lnt {
+    padding: 0 .8em
+}
+
+:root .chroma .ln {
+    margin-right: .4em;
+    padding: 0 .4em 0 .4em;
+    color: #b3b3b3
+}
+
+:root .chroma .k {
+    color: #ff79c6
+}
+
+:root .chroma .kc {
+    color: #ff79c6
+}
+
+:root .chroma .kd {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .kn {
+    color: #ff79c6
+}
+
+:root .chroma .kp {
+    color: #ff79c6
+}
+
+:root .chroma .kr {
+    color: #ff79c6
+}
+
+:root .chroma .kt {
+    color: #8be9fd
+}
+
+:root .chroma .n {
+    color: inherit
+}
+
+:root .chroma .na {
+    color: #50fa7b
+}
+
+:root .chroma .nb {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .bp {
+    color: inherit
+}
+
+:root .chroma .nc {
+    color: #50fa7b
+}
+
+:root .chroma .no {
+    color: inherit
+}
+
+:root .chroma .nd {
+    color: inherit
+}
+
+:root .chroma .ni {
+    color: inherit
+}
+
+:root .chroma .ne {
+    color: inherit
+}
+
+:root .chroma .nf {
+    color: #50fa7b
+}
+
+:root .chroma .fm {
+    color: inherit
+}
+
+:root .chroma .nl {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .nn {
+    color: inherit
+}
+
+:root .chroma .nx {
+    color: inherit
+}
+
+:root .chroma .py {
+    color: inherit
+}
+
+:root .chroma .nt {
+    color: #ff79c6
+}
+
+:root .chroma .nv {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .vc {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .vg {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .vi {
+    color: #8be9fd;
+    font-style: italic
+}
+
+:root .chroma .vm {
+    color: inherit
+}
+
+:root .chroma .l {
+    color: inherit
+}
+
+:root .chroma .ld {
+    color: inherit
+}
+
+:root .chroma .s {
+    color: #f1fa8c
+}
+
+:root .chroma .sa {
+    color: #f1fa8c
+}
+
+:root .chroma .sb {
+    color: #f1fa8c
+}
+
+:root .chroma .sc {
+    color: #f1fa8c
+}
+
+:root .chroma .dl {
+    color: #f1fa8c
+}
+
+:root .chroma .sd {
+    color: #f1fa8c
+}
+
+:root .chroma .s2 {
+    color: #f1fa8c
+}
+
+:root .chroma .se {
+    color: #f1fa8c
+}
+
+:root .chroma .sh {
+    color: #f1fa8c
+}
+
+:root .chroma .si {
+    color: #f1fa8c
+}
+
+:root .chroma .sx {
+    color: #f1fa8c
+}
+
+:root .chroma .sr {
+    color: #f1fa8c
+}
+
+:root .chroma .s1 {
+    color: #f1fa8c
+}
+
+:root .chroma .ss {
+    color: #f1fa8c
+}
+
+:root .chroma .m {
+    color: #bd93f9
+}
+
+:root .chroma .mb {
+    color: #bd93f9
+}
+
+:root .chroma .mf {
+    color: #bd93f9
+}
+
+:root .chroma .mh {
+    color: #bd93f9
+}
+
+:root .chroma .mi {
+    color: #bd93f9
+}
+
+:root .chroma .il {
+    color: #bd93f9
+}
+
+:root .chroma .mo {
+    color: #bd93f9
+}
+
+:root .chroma .o {
+    color: #ff79c6
+}
+
+:root .chroma .ow {
+    color: #ff79c6
+}
+
+:root .chroma .p {
+    color: inherit
+}
+
+:root .chroma .c {
+    color: #96a6d8
+}
+
+:root .chroma .ch {
+    color: #96a6d8
+}
+
+:root .chroma .cm {
+    color: #96a6d8
+}
+
+:root .chroma .c1 {
+    color: #96a6d8
+}
+
+:root .chroma .cs {
+    color: #96a6d8
+}
+
+:root .chroma .cp {
+    color: #ff79c6
+}
+
+:root .chroma .cpf {
+    color: #ff79c6
+}
+
+:root .chroma .g {
+    color: inherit
+}
+
+:root .chroma .gd {
+    color: #d98f90
+}
+
+:root .chroma .ge {
+    text-decoration: underline
+}
+
+:root .chroma .gr {
+    color: inherit
+}
+
+:root .chroma .gh {
+    font-weight: bold;
+    color: inherit
+}
+
+:root .chroma .gi {
+    font-weight: bold
+}
+
+:root .chroma .go {
+    color: #8f9ea8
+}
+
+:root .chroma .gp {
+    color: inherit
+}
+
+:root .chroma .gs {
+    color: inherit
+}
+
+:root .chroma .gu {
+    font-weight: bold
+}
+
+:root .chroma .gt {
+    color: inherit
+}
+
+:root .chroma .gl {
+    text-decoration: underline
+}
+
+:root .chroma .w {
+    color: inherit
+}
+
+  @media (prefers-color-scheme: light) {
+    :root {
+        --header-background: #1a1a1a;
+        --header-font-color: #ffffff;
+
+        --body-background: #1a1a1a;
+        --body-font-color: #ced3d8;
+
+        --mark-color: #ffab00;
+
+        --button-background: #be69d8;
+        --button-border-color: #be69d8;
+
+        --link-color: #be69d8;
+        --link-color-visited: #c27a9e;
+
+        --code-background: #3c393d;
+        --code-accent-color: #be69d8;
+        --code-accent-color-lite: #d896ec;
+        --code-font-color: #eeeded;
+
+        --code-copy-background: #343a40;
+        --code-copy-font-color: #6b7784;
+        --code-copy-border-color: #6b7784;
+        --code-copy-success-color: #be69d8;
+
+        --accent-color: #2b3035;
+        --accent-color-lite: #2f353a;
+
+        --control-icons: #b2bac1;
+
+        --footer-background: #1a1a1a;
+        --footer-font-color: #ffffff;
+        --footer-link-color: #be69d8;
+        --footer-link-color-visited: #be69d8;
+    }
+
+
+    :root .dark-mode-dim .gdoc-markdown img {
+      filter: brightness(0.75) grayscale(0.2)
+  }
+
+  :root .gdoc-markdown .gdoc-hint,
+  :root .gdoc-markdown .gdoc-props__tag,
+  :root .gdoc-markdown .admonitionblock {
+      filter: saturate(2.5) brightness(0.85)
+  }
+
+  :root .gdoc-markdown .gdoc-hint a,
+  :root .gdoc-markdown .admonitionblock a {
+      color: var(--hint-link-color)
+  }
+
+  :root .gdoc-markdown .gdoc-hint a:visited,
+  :root .gdoc-markdown .admonitionblock a:visited {
+      color: var(--hint-link-color-visited)
+  }
+
+  :root .gdoc-markdown .gdoc-hint__title,
+  :root .gdoc-markdown .admonitionblock table td:first-child {
+      background-color: rgba(134, 142, 150, .15)
+  }
+
+  :root .chroma {
+      color: var(--code-font-color)
+  }
+
+  :root .chroma .lntable td:nth-child(2) code .hl {
+      width: auto;
+      margin-left: -0.5em;
+      padding: 0 .5em
+  }
+
+  :root .highlight pre.chroma {
+      width: 100%;
+      overflow: auto;
+      max-height: var(--code-max-height)
+  }
+
+  :root .chroma .lntable {
+      border: 1px solid var(--code-accent-color);
+      border-radius: .15rem;
+      border-spacing: 0;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      display: block;
+      max-height: var(--code-max-height);
+      overflow: auto
+  }
+
+  :root .chroma .lntable pre.chroma {
+      max-height: none;
+      border-radius: 0;
+      margin: 0
+  }
+
+  :root .chroma .lntable td:first-child code {
+      background-color: var(--code-accent-color-lite);
+      border-right: 1px solid var(--code-accent-color);
+      padding-left: 0;
+      padding-right: 0;
+      border-radius: 0
+  }
+
+  :root .chroma .lntable td:nth-child(2) {
+      width: 100%;
+      margin-left: 2rem
+  }
+
+  :root .chroma .x {
+      color: inherit
+  }
+
+  :root .chroma .err {
+      color: inherit
+  }
+
+  :root .chroma .lntd {
+      vertical-align: top;
+      padding: 0;
+      margin: 0;
+      border: 0
+  }
+
+  :root .chroma .hl {
+      display: block;
+      width: 100%;
+      background-color: #4f1605
+  }
+
+  :root .chroma .lnt {
+      padding: 0 .8em
+  }
+
+  :root .chroma .ln {
+      margin-right: .4em;
+      padding: 0 .4em 0 .4em;
+      color: #b3b3b3
+  }
+
+  :root .chroma .k {
+      color: #ff79c6
+  }
+
+  :root .chroma .kc {
+      color: #ff79c6
+  }
+
+  :root .chroma .kd {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .kn {
+      color: #ff79c6
+  }
+
+  :root .chroma .kp {
+      color: #ff79c6
+  }
+
+  :root .chroma .kr {
+      color: #ff79c6
+  }
+
+  :root .chroma .kt {
+      color: #8be9fd
+  }
+
+  :root .chroma .n {
+      color: inherit
+  }
+
+  :root .chroma .na {
+      color: #50fa7b
+  }
+
+  :root .chroma .nb {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .bp {
+      color: inherit
+  }
+
+  :root .chroma .nc {
+      color: #50fa7b
+  }
+
+  :root .chroma .no {
+      color: inherit
+  }
+
+  :root .chroma .nd {
+      color: inherit
+  }
+
+  :root .chroma .ni {
+      color: inherit
+  }
+
+  :root .chroma .ne {
+      color: inherit
+  }
+
+  :root .chroma .nf {
+      color: #50fa7b
+  }
+
+  :root .chroma .fm {
+      color: inherit
+  }
+
+  :root .chroma .nl {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .nn {
+      color: inherit
+  }
+
+  :root .chroma .nx {
+      color: inherit
+  }
+
+  :root .chroma .py {
+      color: inherit
+  }
+
+  :root .chroma .nt {
+      color: #ff79c6
+  }
+
+  :root .chroma .nv {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .vc {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .vg {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .vi {
+      color: #8be9fd;
+      font-style: italic
+  }
+
+  :root .chroma .vm {
+      color: inherit
+  }
+
+  :root .chroma .l {
+      color: inherit
+  }
+
+  :root .chroma .ld {
+      color: inherit
+  }
+
+  :root .chroma .s {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sa {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sb {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sc {
+      color: #f1fa8c
+  }
+
+  :root .chroma .dl {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sd {
+      color: #f1fa8c
+  }
+
+  :root .chroma .s2 {
+      color: #f1fa8c
+  }
+
+  :root .chroma .se {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sh {
+      color: #f1fa8c
+  }
+
+  :root .chroma .si {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sx {
+      color: #f1fa8c
+  }
+
+  :root .chroma .sr {
+      color: #f1fa8c
+  }
+
+  :root .chroma .s1 {
+      color: #f1fa8c
+  }
+
+  :root .chroma .ss {
+      color: #f1fa8c
+  }
+
+  :root .chroma .m {
+      color: #bd93f9
+  }
+
+  :root .chroma .mb {
+      color: #bd93f9
+  }
+
+  :root .chroma .mf {
+      color: #bd93f9
+  }
+
+  :root .chroma .mh {
+      color: #bd93f9
+  }
+
+  :root .chroma .mi {
+      color: #bd93f9
+  }
+
+  :root .chroma .il {
+      color: #bd93f9
+  }
+
+  :root .chroma .mo {
+      color: #bd93f9
+  }
+
+  :root .chroma .o {
+      color: #ff79c6
+  }
+
+  :root .chroma .ow {
+      color: #ff79c6
+  }
+
+  :root .chroma .p {
+      color: inherit
+  }
+
+  :root .chroma .c {
+      color: #96a6d8
+  }
+
+  :root .chroma .ch {
+      color: #96a6d8
+  }
+
+  :root .chroma .cm {
+      color: #96a6d8
+  }
+
+  :root .chroma .c1 {
+      color: #96a6d8
+  }
+
+  :root .chroma .cs {
+      color: #96a6d8
+  }
+
+  :root .chroma .cp {
+      color: #ff79c6
+  }
+
+  :root .chroma .cpf {
+      color: #ff79c6
+  }
+
+  :root .chroma .g {
+      color: inherit
+  }
+
+  :root .chroma .gd {
+      color: #d98f90
+  }
+
+  :root .chroma .ge {
+      text-decoration: underline
+  }
+
+  :root .chroma .gr {
+      color: inherit
+  }
+
+  :root .chroma .gh {
+      font-weight: bold;
+      color: inherit
+  }
+
+  :root .chroma .gi {
+      font-weight: bold
+  }
+
+  :root .chroma .go {
+      color: #8f9ea8
+  }
+
+  :root .chroma .gp {
+      color: inherit
+  }
+
+  :root .chroma .gs {
+      color: inherit
+  }
+
+  :root .chroma .gu {
+      font-weight: bold
+  }
+
+  :root .chroma .gt {
+      color: inherit
+  }
+
+  :root .chroma .gl {
+      text-decoration: underline
+  }
+
+  :root .chroma .w {
+      color: inherit
+  }
+
+  }
+
+  /* Dark mode theming */
+  :root[color-theme="dark"] {
+    --header-background: #1a1a1a;
+    --header-font-color: #ffffff;
+
+    --body-background: #1a1a1a;
+    --body-font-color: #ced3d8;
+
+    --mark-color: #ffab00;
+
+    --button-background: #be69d8;
+    --button-border-color: #be69d8;
+
+    --link-color: #be69d8;
+    --link-color-visited: #c27a9e;
+
+    --code-background: #282629;
+    --code-accent-color: #be69d8;
+    --code-accent-color-lite: #d896ec;
+    --code-font-color: #eeeded;
+
+    --code-copy-background: #d189cd;
+    --code-copy-font-color: #6b7784;
+    --code-copy-border-color: #6b7784;
+    --code-copy-success-color: #be69d8;
+
+    --accent-color: #2b3035;
+    --accent-color-lite: #2f353a;
+
+    --control-icons: #b2bac1;
+
+    --footer-background: #1a1a1a;
+    --footer-font-color: #ffffff;
+    --footer-link-color: #be69d8;
+    --footer-link-color-visited: #be69d8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --header-background: #1a1a1a;
+      --header-font-color: #ffffff;
+
+      --body-background: #1a1a1a;
+      --body-font-color: #ced3d8;
+
+      --mark-color: #ffab00;
+
+      --button-background: #be69d8;
+      --button-border-color: #be69d8;
+
+      --link-color: #be69d8;
+      --link-color-visited: #c27a9e;
+
+      --code-background: #3c393d;
+      --code-accent-color: #be69d8;
+      --code-accent-color-lite: #d896ec;
+      --code-font-color: #eeeded;
+
+      --code-copy-background: #d189cd;
+      --code-copy-font-color: #6b7784;
+      --code-copy-border-color: #6b7784;
+      --code-copy-success-color: #be69d8;
+
+      --accent-color: #2b3035;
+      --accent-color-lite: #2f353a;
+
+      --control-icons: #b2bac1;
+
+      --footer-background: #1a1a1a;
+      --footer-font-color: #ffffff;
+      --footer-link-color: #be69d8;
+      --footer-link-color-visited: #be69d8;
+    }
+  }

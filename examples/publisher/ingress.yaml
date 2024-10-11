@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: publisher-webui-ingress
+  namespace: dataphos
+  annotations:
+    kubernetes.io/ingress.class : nginx
+    nginx.ingress.kubernetes.io/ssl-redirect : "true"
+    nginx.ingress.kubernetes.io/enable-cors : "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods : "PUT, GET, POST, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin : "*"
+    nginx.ingress.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
+spec:
+  rules:
+    - host: <webui-domain-name> # insert your WEB UI domain name, same as in the Manager config map
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: publisher-webui
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - <webui-domain-name> # insert your WEB UI domain name
+      secretName: webui-tls-secret
