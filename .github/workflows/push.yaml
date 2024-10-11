@@ -1,7 +1,7 @@
 name: PUSH CI
 on:
   push:
-    branches: [ develop, main ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,6 @@ jobs:
         run: npx commitlint --last --verbose
 
   deploy:
-    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -57,7 +56,6 @@ jobs:
         run: 'curl "${{ steps.deploy.outputs.url }}"'
 
   release-please:
-    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
