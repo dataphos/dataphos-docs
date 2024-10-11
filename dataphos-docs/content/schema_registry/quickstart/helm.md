@@ -178,4 +178,4 @@ helm install schema-validator ./dataphos-schema-validator
 
 This would cause the `values.yaml` file to be read from the root directory of the `dataphos-schema-validator` folder. The `--values` flag may be passed in the call to override this behavior.
 
-You can also add a `--dry-run` flag that will simply generate the Kubernetes manifests and check if they are valid (note that this requires `kubectl` to be configured against an actual cluster). For general linting of the Helm templates, run `helm lint`. 
+You can also add a `--dry-run` flag that will simply generate the Kubernetes manifests and check if they are valid (note that this requires `kubectl` to be configured against an actual cluster). For general linting of the Helm templates, run `helm lint`.

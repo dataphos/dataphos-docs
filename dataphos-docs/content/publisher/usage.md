@@ -111,7 +111,7 @@ The Destination configuration YAML file is used to define the details regarding 
 |destinationName   |String   |	Name of the destination configuration. This value needs to be unique upon a single Publisher deployment. Specifying the existing destination name when creating a new destination resource will result in failure. Also, this name cannot be empty, this is the unique identifier of an existing and active destination configuration in the database.  |Yes   |
 |destinationType   |String   |Destination type represents the type of destination service that destination configuration will be using. Supported destination types: PubSub, Solace, Kafka, Azure (ServiceBus from version 0.5.1), NatsCore, NatsJetStream.    | Yes |
 |parameters*   |Key-value map   | The values specific for some messaging platforms can be defined in the form of a key: value map.  |Yes   |
- {{< /tab >}}
+{{< /tab >}}
 
 {{< tab "Google PubSub" >}} 
 

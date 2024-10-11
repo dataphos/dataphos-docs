@@ -12,7 +12,7 @@ Deployment script for the Prometheus server for gathering the metrics and monito
 #!/bin/bash
 if [ $# -ne 1 ]; then
         echo "please specify all required variables"
-		exit 1
+    exit 1
 fi
 
 namespace=$1

@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $# -ne 8 ]; then
         echo "please specify all required variables"
-		exit 1
+    exit 1
 fi
 project_id=$1
 persistor_topic=$2

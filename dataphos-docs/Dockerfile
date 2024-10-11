@@ -8,6 +8,6 @@ WORKDIR ./themes/hugo-geekdoc
 RUN npm install
 RUN npm run build
 
-WORKDIR /app 
+WORKDIR /app
 
 CMD ["server"]

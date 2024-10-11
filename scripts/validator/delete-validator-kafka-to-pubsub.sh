@@ -2,7 +2,7 @@
 
 if [ $# -ne 2 ]; then
         echo "please specify all required variables"
-		exit 1
+    exit 1
 fi
 
 namespace=$1
@@ -94,7 +94,7 @@ EOF
 }
 
 if [ "$message_type" = "csv" ]; then
-   delete_csv_validator
+    delete_csv_validator
 elif [ "$message_type" = "xml" ]; then
     delete_xml_validator
 fi

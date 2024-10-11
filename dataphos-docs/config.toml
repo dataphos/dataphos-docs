@@ -24,8 +24,7 @@ enableRobotsTXT = true
     endLevel = 9
 
 [taxonomies]
-   tag = "tags"
+    tag = "tags"
 
 [params]
     geekdocLogo = "brand.png"
-    

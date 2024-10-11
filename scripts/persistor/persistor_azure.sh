@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $# -ne 12 ]; then
         echo "please specify all required variables"
-		exit 1
+    exit 1
 fi
 client_id=$1
 client_secret=$2

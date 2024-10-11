@@ -72,11 +72,10 @@ An example of a successful response is:
     "status": 200,
     "msg": "resubmission succesful",
     "summary": {
-    	"indexed_count": 2,
-    	"fetched_count": 2,
-    	"deserialized_count": 2,
-    	"published_count": 2
-    		
+        "indexed_count": 2,
+        "fetched_count": 2,
+        "deserialized_count": 2,
+        "published_count": 2
     }
 }
 ``` 
